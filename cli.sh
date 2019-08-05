@@ -46,6 +46,7 @@ source "$SCRIPTFOLDER/modules/wifi.sh"
 source "$SCRIPTFOLDER/modules/wificountry.sh"
 source "$SCRIPTFOLDER/modules/clone.sh"
 source "$SCRIPTFOLDER/modules/coralenv.sh"
+source "$SCRIPTFOLDER/modules/coraltpu.sh"
 
 
 
@@ -216,6 +217,11 @@ case $1 in
     checkroot
     shift
     coralenv "$@"
+    ;;
+  coraltpu)
+    checkroot
+    shift
+    coraltpu "$@"
     ;;
   help)
     help "$2"
