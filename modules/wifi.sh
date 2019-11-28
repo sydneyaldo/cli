@@ -58,6 +58,27 @@ function wifi {
   echo "wifi" > /etc/network/mode
 }
 
+function wifi_enterprize{
+	{	 
+		ssid="$1"
+		scan_ssid=1
+      		key_mgmt=WPA-EAP
+      		pairwise=CCMP TKIP
+      		group=CCMP TKIP
+      		eap=PEAP
+      		identity="$2"
+      		password="$3"
+		phase1="peapver=0"
+  		phase2="MSCHAPV2"
+	} >> /etc/wpa_supplicant/wpa_supplicant.conf
+	echo "auto lo"
+	echo "iface lo inet loopback
+	echo "iface eth0 inet dhcp
+	echo ?allow-hotplug wlan0
+	iface wlan0 inet dhcp
+        	pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
+        	post-down killall -q wpa_supplicant
+}
 function wifi_help {
   echo ""
   echo "Usage: $(basename "$0") wifi <ESSID> [password]"

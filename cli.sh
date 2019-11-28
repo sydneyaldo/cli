@@ -86,6 +86,9 @@ case $1 in
   detectrpi)
     detectrpi
     ;;
+  wifienterprize)
+    wifi_enterprize "2" "3" "4"
+    ;;
   wifi)
     checkrpi
     checkroot
