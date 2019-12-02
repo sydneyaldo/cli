@@ -59,29 +59,35 @@ function wifi {
 }
 
 function wifi_enterprize{
+	# need ssid
+	# identity
+	# pass
 	{	 
-		ssid="$1"
-		scan_ssid=1
-      		key_mgmt=WPA-EAP
-      		pairwise=CCMP TKIP
-      		group=CCMP TKIP
-      		eap=PEAP
-      		identity="$2"
-      		password="$3"
+		echo "ssid=$1"
+		echo "scan_ssid=1
+      		echo "key_mgmt=WPA-EAP
+      		echo "pairwise=CCMP TKIP
+      		echo "group=CCMP TKIP
+      		echo "eap=PEAP
+      		echo "identity=$2"
+      		echo "password="$3"
 		phase1="peapver=0"
   		phase2="MSCHAPV2"
-	} >> /etc/wpa_supplicant/wpa_supplicant.conf
-	echo "auto lo"
-	echo "iface lo inet loopback
-	echo "iface eth0 inet dhcp
-	echo ?allow-hotplug wlan0
-	iface wlan0 inet dhcp
+	} > /etc/wpa_supplicant/wpa_supplicant.conf
+
+	{
+		echo "auto lo"
+		echo "iface lo inet loopback"
+		echo "iface eth0 inet dhcp"
+		echo "allow-hotplug wlan0"
+		echo "iface wlan0 inet dhcp"
         	pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
         	post-down killall -q wpa_supplicant
-}
+        } > /etc/network/interfaces
+
 function wifi_help {
   echo ""
-  echo "Usage: $(basename "$0") wifi <ESSID> [password]"
+  echo "Usage: $(basename "$0") wifi <ESSID> [password] | $(basename "$0") wifi enterperize <username> <password> "
   echo ""
   echo "Connects to a wifi network"
   echo ""
@@ -92,4 +98,8 @@ function wifi_help {
   echo "  $(basename "$0") wifi yourwifiname"
   echo "      Connects to an open wifi network named 'yourwifiname'."
   echo ""
+  echo "  $(basename "$0") wifi enterprize schoolwifi user1 pass123"
+  echo "      Connects to a public wifi with username called user1 and password pass123"
+  echo ""
 }
+
