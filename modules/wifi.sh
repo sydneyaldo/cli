@@ -81,9 +81,11 @@ function wifi_enterprize{
 		echo "iface eth0 inet dhcp"
 		echo "allow-hotplug wlan0"
 		echo "iface wlan0 inet dhcp"
-        	pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
-        	post-down killall -q wpa_supplicant
+        	echo "pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf"
+        	echo "post-down killall -q wpa_supplicant"
         } > /etc/network/interfaces
+	service networking restart
+}
 
 function wifi_help {
   echo ""
