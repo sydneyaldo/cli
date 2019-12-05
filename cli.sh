@@ -87,7 +87,7 @@ case $1 in
     detectrpi
     ;;
   wifienterprise)
-    wifi_enterprise "2" "3" "4"
+    wifi_enterprise "$2" "$3" "$4"
     ;;
   wifi)
     checkrpi
