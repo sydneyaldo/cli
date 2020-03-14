@@ -1,9 +1,14 @@
 #!/bin/bash
 
 function wifi {
-
   if [ -z "$1" ]; then
     echo "Error: name of the network missing"
+    exit 1
+  fi
+
+  if [ "$#" -gt 2 ]; then
+    wifi_enterprize
+    echo ""
     exit 1
   fi
   wifinetwork="$1"
@@ -58,33 +63,31 @@ function wifi {
   echo "wifi" > /etc/network/mode
 }
 
-function wifi_enterprize{
-	# need ssid
-	# identity
-	# pass
-	{	 
-		echo "ssid=\"$1\""
-		echo "scan_ssid=1"
-		echo "key_mgmt=WPA-EAP"
-		echo "pairwise=CCMP TKIP"
-		echo "group=CCMP TKIP"
-		echo "eap=PEAP"
-		echo "identity=\"$2\""
-		echo "password=\"$3\""
-		echo "phase1=\"peapver=0\""
-		echo "phase2=\"MSCHAPV2\""
-	} > /etc/wpa_supplicant/wpa_supplicant.conf
+function wifi_enterprize {
+   {   
+   echo "network={"
+   echo "ssid=\"$1\""
+   echo "scan_ssid=1"
+   echo "mode=0"
+   echo "key_mgmt=WPA-EAP"
+   echo "pairwise=CCMP TKIP"
+   echo "identity=\"$2\""
+   echo "password=\"$3\""
+   echo "phase1=\"peaplabel=0\""
+   echo "phase2=\"auth=MSCHAPV2\""
+   } > /etc/wpa_supplicant/wpa_supplicant.conf
 
-	{
-		echo "auto lo"
-		echo "iface lo inet loopback"
-		echo "iface eth0 inet dhcp"
-		echo "allow-hotplug wlan0"
-		echo "iface wlan0 inet dhcp"
-   	echo "pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf"
-   	echo "post-down killall -q wpa_supplicant"
-  } > /etc/network/interfaces
-	service networking restart
+   {
+   echo "iface lo inet loopback"
+   echo "iface eth0 inet dhcp"
+   echo ""
+   echo "allow-hotplug wlan0"
+   echo ""
+   echo "iface wlan0 inet dhcp"
+   echo "  pre-up wpa_supplicant -B -Dwext -i wlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf"
+   echo "  post-down killall -q wpa_supplicant"
+   } > /etc/network/interfaces
+   restart_wifi >/dev/null 2>/dev/null
 }
 
 function wifi_help {
