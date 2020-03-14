@@ -7,8 +7,8 @@ function wifi {
   fi
 
   if [ "$#" -gt 2 ]; then
-    wifi_enterprize
-    echo ""
+    wifi_enterprize "$1" "$2" "$3"
+    echo "wifi" > /etc/network/mode
     exit 1
   fi
   wifinetwork="$1"
