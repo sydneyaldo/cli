@@ -10,7 +10,7 @@ function background () {
   if [ $ext == ".png" ] || [ $ext == ".jpg" ] || [ $ext == "jpeg" ] || [ $ext == ".gif" ];
   then
 #    sudo su - pi -c 'wget '"$url"' && env | grep 'DISPLAY' && export DISPLAY=:0.0 && pcmanfm --set-wallpaper '"$img"
-    sudo -u pi sh -c 'wget '"$url"' && env | grep 'DISPLAY' && export DISPLAY=:0.0 && pcmanfm --set-wallpaper '"$img"
+    sudo -u pi sh -c "wget $url && env | grep DISPLAY && export DISPLAY=:0.0 && pcmanfm --set-wallpaper $img"
     #echo "background changed to $img"
     exit 1
   fi
