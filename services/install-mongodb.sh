@@ -79,7 +79,7 @@ function get_icon {
   <defs/>
   <defs>
     <style>
-      .cls-1{fill:#10aa50}.cls-2{fill:#b8c4c2}.cls-3{fill:#12924f}.cls-4{fill:#21313c}
+      .cls-1{fill:#10aa50;}.cls-2{fill:#b8c4c2;}.cls-3{fill:#12924f;}.cls-4{fill:#21313c;}
     </style>
   </defs>
   <title>
